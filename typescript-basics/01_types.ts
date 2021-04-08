@@ -1,6 +1,3 @@
-let age = 15
+let age: number
 
-age = "16"
-// implicit typing; cannot assign string to a number
-
-console.log(age)
+age = 10
