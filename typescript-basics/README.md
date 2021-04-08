@@ -51,15 +51,23 @@ user.surname = "Pham"
 ```
 you can reuse templates in the form of **interfaces** (exact same syntax)  
 allows you to declare your own "types"  
+properties defined within an interface are required  
 ```ts
 interface Person {
-    name: string
+    readonly name: string
     age: number
     [key: string]: any
+    hello(): string
 }
 
 let user: Person = {
     name: "Nathan",
-    age: 16
+    age: 16,
+    hello(): string { return `Hello ${this.name}` }
 }
+
+user.name = "Test" // throws error
 ```
+`readonly` properties cannot be reassigned  
+
+## 03_classes
