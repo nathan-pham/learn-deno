@@ -31,3 +31,35 @@ you can also have a multi-typed array
 let fruits: (string | boolean)[] = ["banana", "orange", "apple"]
 fruits.push(true) // fine
 ```
+
+## 02_interfaces
+declare a template object  
+adding `[key: type]` allows you to add additional (string) keys with `any` type
+```ts
+let user: {
+    name: string
+    age: number
+    [key: string]: any
+}
+
+user = {
+    name: "Nathan",
+    age: 16
+}
+
+user.surname = "Pham"
+```
+you can reuse templates in the form of **interfaces** (exact same syntax)  
+allows you to declare your own "types"  
+```ts
+interface Person {
+    name: string
+    age: number
+    [key: string]: any
+}
+
+let user: Person = {
+    name: "Nathan",
+    age: 16
+}
+```
