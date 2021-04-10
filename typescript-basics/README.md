@@ -131,3 +131,20 @@ function wait<T>(value: T): Promise<T> {
 
 console.log(await wait<number>(1))
 ```
+
+## 05_enum
+recommended for constants  
+```ts
+enum UserRole {
+    ADMIN = "ADMIN",
+    SCRUB = "SCRUB"
+}
+
+function isAdmin(user: UserRole) {
+    return user === UserRole.ADMIN
+}
+
+const user = UserRole.ADMIN
+
+console.log(isAdmin(user)) // true
+```
