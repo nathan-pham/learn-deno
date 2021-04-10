@@ -71,3 +71,38 @@ user.name = "Test" // throws error
 `readonly` properties cannot be reassigned  
 
 ## 03_classes
+data modifiers: 
+- `public`: can be referenced outside of a class (by default)
+- `private`: invisible outside of a class
+- `protected`: private + cannot be referenced from a child class
+- `readonly`: cannot be altered
+```ts
+class Person {
+    name: string
+    readonly age: number
+    constructor(name: string, age: number) {
+        this.name = name
+        this.age = age
+    }
+}
+
+// similar alternative
+class Person {
+    constructor(
+        public name: string,
+        public readonly age: number
+    ) {
+
+    }
+}
+```
+### Extending Classes
+```ts
+class Student extends Person {
+    constructor(name: string, age: number) {
+        super(name, age)
+    }
+}
+```
+
+## 04_generics
