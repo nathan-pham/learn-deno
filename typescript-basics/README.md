@@ -106,3 +106,28 @@ class Student extends Person {
 ```
 
 ## 04_generics
+placed between `<types>`  
+generics add abstraction & reusability  
+can be applied to functions, interfaces, and classes  
+placeholders to specify your own type later on 
+```ts
+function identity<T>(arg: T): T {
+    return arg
+}
+
+// with ES6
+const identity = <T> (arg: T): T => arg
+
+identity<number>(1)
+identity<string>("Hello World")
+```
+allows extensibility without sacrificing types with `any`
+```ts
+function wait<T>(value: T): Promise<T> {
+    return new Promise((res, rej) => {
+        setTimeout(() => res(value), 1000)
+    })
+}
+
+console.log(await wait<number>(1))
+```
