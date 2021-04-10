@@ -5,10 +5,20 @@ class Person {
     ) {}
 
     hello() {
-        console.log("Hello, my name is", this.name + '.')
+        return `Hello, my name is ${this.name}.` 
     }
 }
 
 
-const user = new Person("Joe", 10)
-user.hello()
+class Student extends Person {
+    constructor(name: string, age: number) {
+        super(name, age)
+    }
+
+    politelySay(greeting: string) {
+        console.log(greeting)
+    }
+}
+
+const student = new Student("Nathan", 15)
+student.politelySay(student.hello())
