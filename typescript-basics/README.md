@@ -148,3 +148,9 @@ const user = UserRole.ADMIN
 
 console.log(isAdmin(user)) // true
 ```
+
+## Deno CMD
+```
+deno install -n custom-name --allow-write index.ts
+deno bundle in.ts out.bundle.ts
+```
