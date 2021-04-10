@@ -154,3 +154,47 @@ console.log(isAdmin(user)) // true
 deno install -n custom-name --allow-write index.ts
 deno bundle in.ts out.bundle.ts
 ```
+### CLI
+```
+deno run index.ts arguments
+```
+```ts
+const path = Deno.args[0]
+console.log("path", path)
+console.log(await Deno.readTextFile(path))
+```
+
+### File Exists
+```ts
+function exists(path: string) {
+    try {
+        await Deno.lstat(path)
+        return true
+    } catch(e) {
+        if(e instanceof Deno.errors.NotFound) {
+            return false
+        }
+
+        throw e
+    }
+}
+```
+
+### Creating Directories
+requires `--allow-read` and `--allow-write`
+```ts
+await Deno.mkdir("example")
+await Deno.rename("example", "example-1")
+await Deno.remove("example-1")
+```
+
+## Create Require
+allows you to import modules from the node ecosystem  
+requires `--unstable` and `--allow-read`  
+```ts
+import { createRequire } from "https://deno.land/std/node/module.ts"
+const require = createRequire(import.meta.url)
+
+const moment = require("moment")
+console.log(moment().format("MMMM Do YYYY"))
+```
