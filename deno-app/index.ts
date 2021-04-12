@@ -1,15 +1,7 @@
-import {
-    Application,
-    Router,
-    RouterContext
-} from "https://deno.land/x/oak@v6.5.0/mod.ts"
+import { Application } from "./package.ts"
+import router from "./router.ts"
 
 const app = new Application()
-const router = new Router()
-
-router.get('/', (ctx: RouterContext) => {
-    ctx.response.body = "Hello World"
-})
 
 app.use(router.routes())
 app.use(router.allowedMethods())
