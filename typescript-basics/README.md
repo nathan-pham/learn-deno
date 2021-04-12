@@ -198,3 +198,16 @@ const require = createRequire(import.meta.url)
 const moment = require("moment")
 console.log(moment().format("MMMM Do YYYY"))
 ```
+
+## Common Questions
+add the `--reload` flag to refresh dependencies  
+
+### Lock.json
+create a lock file to verify the integrity of files  
+```
+deno cache --lock-write --lock=deno-lock.json index.ts
+```
+confirm the integrity values; if a dependency is invalid it will throw an error  
+```
+deno cache --reload --lock=deno-lock.json index.ts 
+```
