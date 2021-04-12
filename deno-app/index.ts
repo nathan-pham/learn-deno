@@ -14,9 +14,8 @@ router.get('/', (ctx: RouterContext) => {
 app.use(router.routes())
 app.use(router.allowedMethods())
 
-app.addEventListener("listen", ({ hostname, secure, port }) => {
-    console.log("secure", secure)
-    console.log(`listening on ${hostname}:${port}`)
+app.addEventListener("listen", ({ hostname="localhost", secure, port }) => {
+    console.log(`listening on http${secure ? 's' : '' }://${hostname}:${port}`)
 })
 
 await app.listen({ port: 8080 })
