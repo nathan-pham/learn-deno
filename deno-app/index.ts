@@ -1,19 +1,22 @@
-import * as http from "https://deno.land/std@0.92.0/http/server.ts"
+import {
+    Application,
+    Router,
+    RouterContext
+} from "https://deno.land/x/oak@v6.5.0/mod.ts"
 
-const port = 8080
+const app = new Application()
+const router = new Router()
 
-const app: http.Server = http.serve({ port })
-console.log(`started server on http://localhost:${ port }`)
+router.get('/', (ctx: RouterContext) => {
+    ctx.response.body = "Hello World"
+})
 
-for await (const req: http.ServerRequest of app) {
-    switch(req.url) {
-        case '/':
-            req.respond({ body: "hello world" })
-            break
-        case '/about':
-            req.respond({ body: "about page" })
-            break
-        default:
-            req.respond({ body: "404" })
-    }
-}
+app.use(router.routes())
+app.use(router.allowedMethods())
+
+app.addEventListener("listen", ({ hostname, secure, port }) => {
+    console.log("secure", secure)
+    console.log(`listening on ${hpstname}:${port}`)
+})
+
+await app.listen({ port: 8080 })
