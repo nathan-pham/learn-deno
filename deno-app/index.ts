@@ -16,7 +16,7 @@ app.use(router.allowedMethods())
 
 app.addEventListener("listen", ({ hostname, secure, port }) => {
     console.log("secure", secure)
-    console.log(`listening on ${hpstname}:${port}`)
+    console.log(`listening on ${hostname}:${port}`)
 })
 
 await app.listen({ port: 8080 })
