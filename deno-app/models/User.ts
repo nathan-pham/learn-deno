@@ -14,8 +14,12 @@ export default class User {
     }
 
     async save() {
-        const id = await usersCollection.insertOne(this)
-        console.log(id)
+        const id = await usersCollection.insertOne({
+            ...this,
+            id: null
+        })
+
+        this.id = await id.toString()
 
         return this
     }

@@ -2,8 +2,48 @@ import { RouterContext, hash, compare } from "../package.ts"
 import User from "../models/User.ts"
 
 class AuthController {
-    login(ctx: RouterContext) {
-        console.log("login")
+    async login(ctx: RouterContext) {
+        const result = ctx.request.body()
+
+        if(result.type == "json") {
+            const value = await result.value
+
+            if(!value.email || !value.password) {
+                Object.assign(ctx.response, {
+                    status: 422,
+                    body: {
+                        message: "provide an email and password"
+                    }
+                })
+
+                return
+            }
+
+            const user = await User.findOne({
+                email: value.email
+            })
+
+            if(!user) {
+                Object.assign(ctx.response, {
+                    status: 422,
+                    body: {
+                        message: "an account associated with this email does not exist"
+                    }
+                })
+
+                return
+            }
+            
+            const match = await compare(value.password, user.password)
+            if(!match) {
+                Object.assign(ctx.response, {
+                    status: 422,
+                    body: {
+                        message: "incorrect password"
+                    }
+                })
+            }
+        }
     }
     async register(ctx: RouterContext) {
         const result = ctx.request.body()
