@@ -18,7 +18,7 @@ await client.connect({
     }
 })
 
-const db = client.database("deno_survey")
+const db = client.database("denoSurveyAPI")
 const usersCollection = db.collection("users")
 
 export {

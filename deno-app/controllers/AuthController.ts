@@ -1,4 +1,4 @@
-import { RouterContext } from "../package.ts"
+import { RouterContext, hash, compare } from "../package.ts"
 import User from "../models/User.ts"
 
 class AuthController {
@@ -8,22 +8,41 @@ class AuthController {
     async register(ctx: RouterContext) {
         const result = ctx.request.body()
         try {
-            if(result.type === "json") {
-                const value = await result.value
+        if(result.type === "json") {
+            const value = await result.value
     
-                const user = await User.findOne({ 
-                    email: value.email 
-                })
+            const userExists = await User.findOne({ 
+                email: value.email 
+            })
         
-                if(user) {
-                    ctx.response.body = {
-                        message: "email already in use"
+            if(userExists) {
+                Object.assign(ctx.response, {
+                    status: 422,
+                    body: {
+                        message: "email is already in use"
                     }
-                }
+                })
+
+                return
             }
-        } catch(e) {
-            console.log(e)
+
+            const user = new User({ 
+                ...value,
+                password: await hash(value.password)
+            })
+
+            await user.save()
+
+            Object.assign(ctx.response, {
+                status: 201,
+                body: {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email
+                }
+            })
         }
+    }catch(e) { console.log(e) }
     }
 }
 

@@ -12,3 +12,8 @@ export type {
 export {
     MongoClient
 } from "https://deno.land/x/mongo@v0.22.0/mod.ts"
+
+export { 
+    hash, 
+    compare 
+} from "https://deno.land/x/bcrypt@v0.2.4/mod.ts"
