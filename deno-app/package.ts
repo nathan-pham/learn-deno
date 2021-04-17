@@ -17,3 +17,10 @@ export {
     hash, 
     compare 
 } from "https://deno.land/x/bcrypt@v0.2.4/mod.ts"
+
+export {
+    create as makeJwt,
+    decode as decodeJwt,
+    verify as verifyJwt,
+    getNumericDate as setExpiration
+} from "https://deno.land/x/djwt@v2.2/mod.ts"

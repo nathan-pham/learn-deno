@@ -15,7 +15,7 @@ await client.connect({
         mechanism: "SCRAM-SHA-1",
         db: "denoSurveyAPI"
     }
-}).catch(e => console.error(e))
+}).catch((e: string) => console.error(e))
 
 const db = client.database("denoSurveyAPI")
 const usersCollection = db.collection("users")

@@ -1,4 +1,4 @@
-import { RouterContext, hash, compare } from "../package.ts"
+import { RouterContext, hash, compare, makeJwt, setExpiration } from "../package.ts"
 import User from "../models/User.ts"
 
 class AuthController {
@@ -19,7 +19,7 @@ class AuthController {
                 return
             }
 
-            const user = await User.findOne({
+            const user: any = await User.findOne({
                 email: value.email
             })
 
@@ -35,6 +35,7 @@ class AuthController {
             }
             
             const match = await compare(value.password, user.password)
+            
             if(!match) {
                 Object.assign(ctx.response, {
                     status: 422,
@@ -42,6 +43,21 @@ class AuthController {
                         message: "incorrect password"
                     }
                 })
+
+                return
+            }
+
+            const jwt = await makeJwt({ alg: "HS512", typ: "JWT" }, {
+                iss: user.email,
+                exp: setExpiration(new Date().getTime() * 60 * 60 * 1000)
+            }, Deno.env.get("JWT_SECRET")!)
+            
+
+            ctx.response.body = {
+                jwt,
+                id: user.id,
+                name: user.name,
+                email: user.email
             }
         }
     }

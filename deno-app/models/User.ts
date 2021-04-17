@@ -24,7 +24,13 @@ export default class User {
         return this
     }
 
-    static findOne(params: object) {
-        return usersCollection.findOne(params, { noCursorTimeout: false } as any)
+    static async findOne(params: object) {
+        const user: any = await usersCollection.findOne(params, { noCursorTimeout: false } as any)
+        const id = await user._id.toString()
+
+        delete user._id
+        user.id = id
+
+        return new User(user)
     }
 }
