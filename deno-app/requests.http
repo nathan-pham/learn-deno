@@ -1,3 +1,4 @@
+### register
 POST http://localhost:8080/api/register
 content-type: application/json
 
@@ -7,8 +8,7 @@ content-type: application/json
     "password": "1234"
 }
 
-###
-
+### login
 POST http://localhost:8080/api/login
 content-type: application/json
 
