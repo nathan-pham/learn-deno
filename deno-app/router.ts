@@ -8,8 +8,12 @@ router
     .get('/', (ctx: RouterContext) => {
         ctx.response.body = "Hello World"
     })
+
+    // user management
     .post("/api/login", authController.login)
     .post("/api/register", authController.register)
+
+    // surveys
     .get("/api/survey", surveyController.getAllForUser)
     .get("/api/survey/:id", surveyController.getSingle)
     .post("/api/survey", surveyController.create)
