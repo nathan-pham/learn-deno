@@ -13,7 +13,7 @@ export default class Survey {
         this.description = description
     }
 
-    create() {
+    async create() {
 
     }
 }

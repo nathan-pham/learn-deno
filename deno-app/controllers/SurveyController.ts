@@ -1,4 +1,5 @@
 import { RouterContext } from "../package.ts"
+import { Survey } from "../models/Survey.ts"
 
 class SurveyController {
     async getAllForUser(ctx: RouterContext) {
@@ -14,7 +15,13 @@ class SurveyController {
 
         if(result.type == "json") {
             const value = await result.value
-            
+
+            const survey = new Survey({ 
+                name: value.name, 
+                description: value.description 
+            })
+
+            await survey.create()
 
         } else {
             Object.assign(ctx.response, {
