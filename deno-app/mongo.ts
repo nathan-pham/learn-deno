@@ -21,4 +21,4 @@ await client.connect({
 const db = client.database(dbName)
 
 export const usersCollection = db.collection("users")
-export const surveyCollection = db.collection("surveys")
+export const surveysCollection = db.collection("surveys")
