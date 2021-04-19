@@ -1,9 +1,12 @@
 import { RouterContext } from "../package.ts"
-import { Survey } from "../models/Survey.ts"
+import Survey from "../models/Survey.ts"
 
 class SurveyController {
     async getAllForUser(ctx: RouterContext) {
-        ctx.response.body = []
+        // TODO: return value based on user id
+        try {
+            ctx.response.body = await Survey.findByUser('')
+        } catch(e) { console.log(e) }
     }
 
     async getSingle(ctx: RouterContext) {
@@ -13,6 +16,8 @@ class SurveyController {
     async create(ctx: RouterContext) {
         const result = ctx.request.body()
 
+
+        // TODO: verify user jwt token
         if(result.type == "json") {
             const value = await result.value
 
@@ -22,6 +27,11 @@ class SurveyController {
             })
 
             await survey.create()
+
+            Object.assign(ctx.response, {
+                status: 201,
+                body: survey
+            })
 
         } else {
             Object.assign(ctx.response, {

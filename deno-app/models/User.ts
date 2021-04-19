@@ -16,7 +16,7 @@ export default class User {
     async save() {
         const id = await usersCollection.insertOne({
             ...this,
-            id: null
+            id: undefined
         })
 
         this.id = await id.toString()
@@ -26,11 +26,15 @@ export default class User {
 
     static async findOne(params: object) {
         const user: any = await usersCollection.findOne(params, { noCursorTimeout: false } as any)
-        const id = await user._id.toString()
 
-        delete user._id
-        user.id = id
+        return User.prepare(user)
+    }
 
-        return new User(user)
+    private static prepare(user: any): User {
+        return new User({
+            ...user,
+            id: user._id,
+            _id: undefined
+        })
     }
 }

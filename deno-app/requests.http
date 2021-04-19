@@ -25,10 +25,20 @@ GET http://localhost:8080/api/survey/id
 
 ### create survey
 POST http://localhost:8080/api/survey
-content-type: "application/json"
+content-type: application/json
 
 {
     "name": "survey-1",
     "description": "lorem ipsum"
 }
+
+### update survey
+POST http://localhost:8080/api/survey/id
+content-type: application/json
+
+{
+    "name": "survey-1",
+    "description": "lorem ipsum"
+}
+
 

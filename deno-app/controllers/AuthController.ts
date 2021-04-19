@@ -55,9 +55,8 @@ class AuthController {
 
             ctx.response.body = {
                 jwt,
-                id: user.id,
-                name: user.name,
-                email: user.email
+                ...user,
+                password: undefined
             }
         } else {
             Object.assign(ctx.response, {
