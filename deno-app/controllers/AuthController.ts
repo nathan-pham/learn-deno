@@ -59,11 +59,17 @@ class AuthController {
                 name: user.name,
                 email: user.email
             }
+        } else {
+            Object.assign(ctx.response, {
+                status: 422,
+                body: {
+                    message: "payload must be json"
+                }
+            })
         }
     }
     async register(ctx: RouterContext) {
         const result = ctx.request.body()
-        try {
         if(result.type === "json") {
             const value = await result.value
     
@@ -97,8 +103,14 @@ class AuthController {
                     email: user.email
                 }
             })
+        } else {
+            Object.assign(ctx.response, {
+                status: 422,
+                body: {
+                    message: "payload must be json"
+                }
+            })
         }
-    }catch(e) { console.log(e) }
     }
 }
 
